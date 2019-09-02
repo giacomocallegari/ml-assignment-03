@@ -1,3 +1,4 @@
+import string
 import numpy as np
 import tensorflow as tf
 
@@ -35,6 +36,24 @@ def printv(text):
         print("[", text, "]")
 
 
+def label_to_one_hot(y):
+    """Converts the class labels to one-hot encoded vectors."""
+
+    # Initialize an empty matrix of the length of y.
+    y_one_hot = np.empty((len(y), 26))
+
+    for i in range(len(y)):
+        # Find the ASCII code and shift it onto the [0, 25] range.
+        index = ord(y[i]) - 97
+
+        # Obtain the one-hot representation.
+        vector = np.zeros(26)
+        vector[index] = 1
+        y_one_hot[i] = vector
+
+    return y_one_hot
+
+
 def load_data():
     """Loads the input data and the output targets from the specified path."""
 
@@ -48,8 +67,11 @@ def load_data():
 
     # Load the output targets.
     printv("Loading the output targets...")
-    y_train = np.genfromtxt(DATA_PATH + "train-target.csv", dtype="str")[:TRAIN_SIZE]
-    y_test = np.genfromtxt(DATA_PATH + "test-target.csv", dtype="str")[:TEST_SIZE]
+    y_train = label_to_one_hot(np.genfromtxt(DATA_PATH + "train-target.csv", dtype="str")[:TRAIN_SIZE])
+    y_test = label_to_one_hot(np.genfromtxt(DATA_PATH + "test-target.csv", dtype="str")[:TEST_SIZE])
+
+    # Convert the targets to one-hot encoding.
+    printv("Converting the targets to one-hot encoded vectors...")
 
     print("Number of training examples: ", len(X_train))
     print("Number of test examples: ", len(X_test))
@@ -82,6 +104,11 @@ def max_pool_2x2(x):
 def declaration():
     """Declares the network architecture."""
 
+    print("")
+    print("*** DECLARATION ***")
+
+    printv("Declaring the architecture...")
+
     # Reshape the image from vector to matrix.
     x_image = tf.reshape(x, [-1, 16, 8, 1])
 
@@ -110,6 +137,8 @@ def declaration():
     y_conv = tf.matmul(h_fc1_drop, W_fc2) + b_fc2
     y_hat = tf.nn.softmax(y_conv)
 
+    printv("Declaring additional variables...")
+
     # Use the cross entropy as loss function.
     cross_entropy = tf.reduce_mean(-tf.reduce_sum(y * tf.log(y_hat), reduction_indices=[1]))
 
@@ -126,9 +155,9 @@ def declaration():
     sess = tf.InteractiveSession()
 
     # Run the global variables initializer.
-    tf.global_variables_initializer().run()
+    # tf.global_variables_initializer().run()
 
-    return sess, accuracy, train_step
+    return sess, train_step, accuracy
 
 
 # ---MAIN--- #
@@ -140,7 +169,7 @@ def main():
     X_train, X_test, y_train, y_test = load_data()
 
     # Declare the network architecture.
-    sess, accuracy, train_step = declaration()
+    sess, train_step, accuracy = declaration()
 
     # Save the predictions to file.
     # np.savetxt(OUT_PATH + "test-pred.txt", y_pred, fmt='%s', delimiter='\n')
