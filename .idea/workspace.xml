@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4d7c51b1-af26-49dc-aa9d-5444f2a59cf4" name="Default Changelist" comment="Add data">
+    <list default="true" id="4d7c51b1-af26-49dc-aa9d-5444f2a59cf4" name="Default Changelist" comment="Convert the labels to one-hot encoding">
       <change afterPath="$PROJECT_DIR$/src/cnn_lab.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/draft.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/tensorflow-lab.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/classifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/classifier.py" afterDir="false" />
     </list>
@@ -41,11 +40,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/classifier.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1717">
-              <caret line="171" column="46" selection-start-line="171" selection-start-column="46" selection-end-line="171" selection-end-column="46" />
+            <state relative-caret-position="-1108">
               <folding>
-                <element signature="e#0#13#0" expanded="true" />
+                <element signature="e#1#19#0" expanded="true" />
                 <element signature="e#553#666#0" />
+                <element signature="e#790#989#0" />
+                <element signature="e#690#1452#0" />
                 <element signature="e#1547#1627#0" />
                 <element signature="e#1832#1967#0" />
                 <element signature="e#1941#2028#0" />
@@ -59,8 +59,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/draft.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="782">
-              <caret line="46" column="57" selection-start-line="46" selection-start-column="57" selection-end-line="46" selection-end-column="57" />
+            <state relative-caret-position="731">
+              <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="46" selection-end-column="57" />
             </state>
           </provider>
         </entry>
@@ -98,8 +98,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/cnn_lab.py" />
-        <option value="$PROJECT_DIR$/src/classifier.py" />
         <option value="$PROJECT_DIR$/src/draft.py" />
+        <option value="$PROJECT_DIR$/src/classifier.py" />
       </list>
     </option>
   </component>
@@ -288,7 +288,7 @@
       <workItem from="1567352364774" duration="3306000" />
       <workItem from="1567358392354" duration="541000" />
       <workItem from="1567359001652" duration="284000" />
-      <workItem from="1567398028088" duration="9337000" />
+      <workItem from="1567398028088" duration="9604000" />
     </task>
     <task id="LOCAL-00001" summary="Add data">
       <created>1567319935791</created>
@@ -311,11 +311,18 @@
       <option name="project" value="LOCAL" />
       <updated>1567402911033</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Convert the labels to one-hot encoding">
+      <created>1567407507502</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1567407507502</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21133000" />
+    <option name="totallyTimeSpent" value="21400000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
@@ -326,7 +333,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.40186915" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3956386" />
+      <window_info anchor="bottom" id="Debug" order="3" show_stripe_button="false" weight="0.3956386" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -351,7 +358,8 @@
     <MESSAGE value="Add data" />
     <MESSAGE value="Load the data from file" />
     <MESSAGE value="Declare the network architecture" />
-    <option name="LAST_COMMIT_MESSAGE" value="Declare the network architecture" />
+    <MESSAGE value="Convert the labels to one-hot encoding" />
+    <option name="LAST_COMMIT_MESSAGE" value="Convert the labels to one-hot encoding" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ml_assignment_03$tensorflow_lab.coverage" NAME="tensorflow-lab Coverage Results" MODIFIED="1567352196465" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
@@ -407,18 +415,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/draft.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="46" column="57" selection-start-line="46" selection-start-column="57" selection-end-line="46" selection-end-column="57" />
+        <state relative-caret-position="731">
+          <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="46" selection-end-column="57" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classifier.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1717">
-          <caret line="171" column="46" selection-start-line="171" selection-start-column="46" selection-end-line="171" selection-end-column="46" />
+        <state relative-caret-position="-1108">
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
+            <element signature="e#1#19#0" expanded="true" />
             <element signature="e#553#666#0" />
+            <element signature="e#790#989#0" />
+            <element signature="e#690#1452#0" />
             <element signature="e#1547#1627#0" />
             <element signature="e#1832#1967#0" />
             <element signature="e#1941#2028#0" />

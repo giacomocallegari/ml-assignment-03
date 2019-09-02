@@ -1,4 +1,3 @@
-import string
 import numpy as np
 import tensorflow as tf
 
@@ -160,6 +159,45 @@ def declaration():
     return sess, train_step, accuracy
 
 
+def gen_batch(X, y, size):
+    """Generates a random batch of the provided size."""
+
+    # Sample random indices.
+    idx = np.arange(0, len(X))
+    np.random.shuffle(idx)
+    idx = idx[:size]
+
+    # Create the batches.
+    X_batch = [X[i] for i in idx]
+    y_batch = [y[i] for i in idx]
+
+    return [X_batch, y_batch]
+
+
+def train(X_train, y_train, sess, train_step, accuracy):
+    """Fits the network to the training set."""
+
+    print("")
+    print("*** TRAINING ***")
+
+    # Run the global variable initializer.
+    sess.run(tf.global_variables_initializer())
+
+    # Train the network.
+    printv("Training the network...")
+    for i in range(1000):
+        # Create the batch.
+        batch = gen_batch(X_train, y_train, 50)
+
+        # Compute the training accuracy every 100 steps.
+        if i % 100 == 0:
+            train_accuracy = accuracy.eval(feed_dict={x: batch[0], y: batch[1], keep_prob: 1.0})
+            print('step {}, training accuracy {}'.format(i, train_accuracy))
+
+        # Run a training step.
+        train_step.run(feed_dict={x: batch[0], y: batch[1], keep_prob: 0.5})
+
+
 # ---MAIN--- #
 
 def main():
@@ -170,6 +208,9 @@ def main():
 
     # Declare the network architecture.
     sess, train_step, accuracy = declaration()
+
+    # Train the optimal classifier.
+    train(X_train, y_train, sess, train_step, accuracy)
 
     # Save the predictions to file.
     # np.savetxt(OUT_PATH + "test-pred.txt", y_pred, fmt='%s', delimiter='\n')
