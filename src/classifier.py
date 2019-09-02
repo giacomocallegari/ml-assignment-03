@@ -172,7 +172,7 @@ def declaration():
     return sess, accuracy, train_step, predicted_y
 
 
-def gen_batch(X, y, size):
+def gen_batch_rand(X, y, size):
     """Generates a random batch of the provided size."""
 
     # Sample random indices.
@@ -183,6 +183,20 @@ def gen_batch(X, y, size):
     # Create the batches.
     X_batch = [X[i] for i in idx]
     y_batch = [y[i] for i in idx]
+
+    return [X_batch, y_batch]
+
+
+def gen_batch(X, y, size, index):
+    """Generates a batch of the provided size, starting from the provided index."""
+
+    # Compute the indices.
+    start = size * index
+    end = size * (index + 1)
+
+    # Create the batches.
+    X_batch = X[start:end]
+    y_batch = y[start:end]
 
     return [X_batch, y_batch]
 
@@ -200,7 +214,7 @@ def train(X_train, y_train, sess, accuracy, train_step):
     printv("Training the network...")
     for i in range(1000):
         # Generate the batch.
-        batch = gen_batch(X_train, y_train, 50)
+        batch = gen_batch_rand(X_train, y_train, 50)
 
         # Compute the training accuracy every 100 steps.
         if i % 100 == 0:
@@ -223,10 +237,12 @@ def test(X_test, y_test, sess, accuracy, predicted_y):
 
     # Test the network.
     printv("Testing the network...")
-    for j in range(100):
+    iterations = -(len(X_test) // -100)
+    for j in range(iterations):
         # Generate the batch.
-        batch = gen_batch(X_test, y_test, 100)
+        batch = gen_batch(X_test, y_test, 100, j)
 
+        # Compute the accuracy and the predictions.
         b_acc, b_pred_y = sess.run([accuracy, predicted_y], feed_dict={x: batch[0], y: batch[1], keep_prob: 1.0})
         accuracy_values.append(b_acc)
         predicted_targets.extend(b_pred_y)
