@@ -19,7 +19,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/tensorflow-lab.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
+            <state relative-caret-position="153">
               <caret line="21" selection-start-line="21" selection-end-line="21" />
             </state>
           </provider>
@@ -28,7 +28,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cnn_lab.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1037">
+            <state relative-caret-position="-279">
               <caret line="61" lean-forward="true" selection-start-line="61" selection-end-line="61" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
@@ -40,7 +40,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/classifier.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1108">
+            <state relative-caret-position="-1227">
+              <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
               <folding>
                 <element signature="e#1#19#0" expanded="true" />
                 <element signature="e#553#666#0" />
@@ -50,7 +51,7 @@
                 <element signature="e#1832#1967#0" />
                 <element signature="e#1941#2028#0" />
                 <element signature="e#2089#2171#0" />
-                <element signature="e#2257#4010#0" />
+                <element signature="e#2873#4783#0" />
               </folding>
             </state>
           </provider>
@@ -59,8 +60,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/draft.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="731">
-              <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="46" selection-end-column="57" />
+            <state relative-caret-position="558">
+              <caret line="76" lean-forward="true" selection-start-line="76" selection-end-line="91" selection-end-column="62" />
             </state>
           </provider>
         </entry>
@@ -123,6 +124,17 @@
             <path>
               <item name="ml-assignment-03" type="b2602c69:ProjectViewProjectNode" />
               <item name="ml-assignment-03" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ml-assignment-03" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ml-assignment-03" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ml-assignment-03" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ml-assignment-03" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="ocr" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ml-assignment-03" type="b2602c69:ProjectViewProjectNode" />
@@ -288,7 +300,7 @@
       <workItem from="1567352364774" duration="3306000" />
       <workItem from="1567358392354" duration="541000" />
       <workItem from="1567359001652" duration="284000" />
-      <workItem from="1567398028088" duration="9604000" />
+      <workItem from="1567398028088" duration="10349000" />
     </task>
     <task id="LOCAL-00001" summary="Add data">
       <created>1567319935791</created>
@@ -318,16 +330,23 @@
       <option name="project" value="LOCAL" />
       <updated>1567407507502</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Train the network">
+      <created>1567407686437</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1567407686437</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21400000" />
+    <option name="totallyTimeSpent" value="22145000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21215352" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.123667374" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -359,7 +378,8 @@
     <MESSAGE value="Load the data from file" />
     <MESSAGE value="Declare the network architecture" />
     <MESSAGE value="Convert the labels to one-hot encoding" />
-    <option name="LAST_COMMIT_MESSAGE" value="Convert the labels to one-hot encoding" />
+    <MESSAGE value="Train the network" />
+    <option name="LAST_COMMIT_MESSAGE" value="Train the network" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ml_assignment_03$tensorflow_lab.coverage" NAME="tensorflow-lab Coverage Results" MODIFIED="1567352196465" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
@@ -368,13 +388,6 @@
   <component name="editorHistoryManager">
     <entry file="file://$USER_HOME$/Documents/ML/tensorflow-lab/tensorflow-lab.ipynb">
       <provider selected="true" editor-type-id="jupyter-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tensorflow-lab.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../ml-assignment-02/src/classifier.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -386,25 +399,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cnn_lab.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1037">
-          <caret line="61" lean-forward="true" selection-start-line="61" selection-end-line="61" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Anaconda3/envs/tf_gpu/Lib/site-packages/tensorflow/python/framework/op_def_library.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
           <caret line="59" selection-start-line="59" selection-end-line="59" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/ocr/README">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/data/ocr/train-target.csv">
       <provider selected="true" editor-type-id="text-editor">
@@ -415,14 +415,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/draft.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="46" selection-end-column="57" />
+        <state relative-caret-position="558">
+          <caret line="76" lean-forward="true" selection-start-line="76" selection-end-line="91" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tensorflow-lab.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/ocr/README">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cnn_lab.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-279">
+          <caret line="61" lean-forward="true" selection-start-line="61" selection-end-line="61" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classifier.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1108">
+        <state relative-caret-position="-1227">
+          <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
           <folding>
             <element signature="e#1#19#0" expanded="true" />
             <element signature="e#553#666#0" />
@@ -432,7 +453,7 @@
             <element signature="e#1832#1967#0" />
             <element signature="e#1941#2028#0" />
             <element signature="e#2089#2171#0" />
-            <element signature="e#2257#4010#0" />
+            <element signature="e#2873#4783#0" />
           </folding>
         </state>
       </provider>

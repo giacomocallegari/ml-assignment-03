@@ -156,7 +156,7 @@ def declaration():
     # Run the global variables initializer.
     # tf.global_variables_initializer().run()
 
-    return sess, train_step, accuracy
+    return sess, accuracy, train_step, predicted_y
 
 
 def gen_batch(X, y, size):
@@ -174,7 +174,7 @@ def gen_batch(X, y, size):
     return [X_batch, y_batch]
 
 
-def train(X_train, y_train, sess, train_step, accuracy):
+def train(X_train, y_train, sess, accuracy, train_step):
     """Fits the network to the training set."""
 
     print("")
@@ -186,7 +186,7 @@ def train(X_train, y_train, sess, train_step, accuracy):
     # Train the network.
     printv("Training the network...")
     for i in range(1000):
-        # Create the batch.
+        # Generate the batch.
         batch = gen_batch(X_train, y_train, 50)
 
         # Compute the training accuracy every 100 steps.
@@ -198,6 +198,25 @@ def train(X_train, y_train, sess, train_step, accuracy):
         train_step.run(feed_dict={x: batch[0], y: batch[1], keep_prob: 0.5})
 
 
+def test(X_test, y_test, sess, accuracy, predicted_y):
+    """Evaluates the network on the test set and returns the predictions."""
+
+    # Accuracy and predictions.
+    accuracy_values = []
+    predicted_targets = []
+
+    # Test the network.
+    for j in range(100):
+        # Generate the batch.
+        batch = gen_batch(X_test, y_test, 100)
+
+        b_acc, b_pred_y = sess.run([accuracy, predicted_y], feed_dict={x: batch[0], y: batch[1], keep_prob: 1.0})
+        accuracy_values.append(b_acc)
+        predicted_targets.extend(b_pred_y)
+
+    print('test accuracy {}'.format(np.mean(accuracy_values)))
+
+
 # ---MAIN--- #
 
 def main():
@@ -207,10 +226,13 @@ def main():
     X_train, X_test, y_train, y_test = load_data()
 
     # Declare the network architecture.
-    sess, train_step, accuracy = declaration()
+    sess, accuracy, train_step, predicted_y = declaration()
 
-    # Train the optimal classifier.
-    train(X_train, y_train, sess, train_step, accuracy)
+    # Train the network.
+    train(X_train, y_train, sess, accuracy, train_step)
+
+    # Test the network.
+    test(X_test, y_test, sess, accuracy, predicted_y)
 
     # Save the predictions to file.
     # np.savetxt(OUT_PATH + "test-pred.txt", y_pred, fmt='%s', delimiter='\n')
