@@ -1,5 +1,6 @@
 import numpy as np
 import tensorflow as tf
+from sklearn.model_selection import KFold
 
 
 # ---CONFIGURATION PARAMETERS--- #
@@ -252,6 +253,26 @@ def test(X_test, y_test, sess, accuracy, predicted_y):
     return index_to_char(predicted_targets)
 
 
+def cross_validation(X, y, sess, accuracy, train_step, predicted_y, k):
+    """Performs k-fold cross-validation to tune the model's parameters."""
+
+    print("")
+    print("*** CROSS VALIDATION ***")
+
+    # Define the cross-validation process.
+    kf = KFold(n_splits=k, shuffle=True, random_state=42)
+    i = 0
+
+    for train_index, test_index in kf.split(X):
+        print("\n")
+        print(" --- Fold ", i, " ---")
+        i += 1
+
+        # Train and test the network on the current folds.
+        train(X[train_index], y[train_index], sess, accuracy, train_step)
+        test(X[test_index], y[test_index], sess, accuracy, predicted_y)
+
+
 # ---MAIN--- #
 
 def main():
@@ -262,6 +283,9 @@ def main():
 
     # Declare the network architecture.
     sess, accuracy, train_step, predicted_y = declaration()
+
+    # Perform cross-validation on the network.
+    cross_validation(X_train, y_train, sess, accuracy, train_step, predicted_y, 3)
 
     # Train the network.
     train(X_train, y_train, sess, accuracy, train_step)
