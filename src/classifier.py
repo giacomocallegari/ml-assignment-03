@@ -35,7 +35,7 @@ def printv(text):
         print("[", text, "]")
 
 
-def label_to_one_hot(y):
+def char_to_one_hot(y):
     """Converts the class labels to one-hot encoded vectors."""
 
     # Initialize an empty matrix of the length of y.
@@ -53,6 +53,19 @@ def label_to_one_hot(y):
     return y_one_hot
 
 
+def index_to_char(y):
+    """Converts the target indices to characters."""
+
+    # Initialize an empty matrix of the length of y.
+    y_char = np.empty(len(y), dtype="str")
+
+    for i in range(len(y)):
+        # Find the character.
+        y_char[i] = chr(y[i] + 97)
+
+    return y_char
+
+
 def load_data():
     """Loads the input data and the output targets from the specified path."""
 
@@ -61,13 +74,13 @@ def load_data():
 
     # Load the input data.
     printv("Loading the input data...")
-    X_train = np.genfromtxt(DATA_PATH + "train-data.csv", delimiter=",")[:TRAIN_SIZE]
-    X_test = np.genfromtxt(DATA_PATH + "test-data.csv", delimiter=",")[:TEST_SIZE]
+    X_train = np.genfromtxt(DATA_PATH + "train-data.csv", delimiter=",", max_rows=TRAIN_SIZE)
+    X_test = np.genfromtxt(DATA_PATH + "test-data.csv", delimiter=",", max_rows=TEST_SIZE)
 
     # Load the output targets.
     printv("Loading the output targets...")
-    y_train = label_to_one_hot(np.genfromtxt(DATA_PATH + "train-target.csv", dtype="str")[:TRAIN_SIZE])
-    y_test = label_to_one_hot(np.genfromtxt(DATA_PATH + "test-target.csv", dtype="str")[:TEST_SIZE])
+    y_train = char_to_one_hot(np.genfromtxt(DATA_PATH + "train-target.csv", dtype="str", max_rows=TRAIN_SIZE))
+    y_test = char_to_one_hot(np.genfromtxt(DATA_PATH + "test-target.csv", dtype="str", max_rows=TEST_SIZE))
 
     # Convert the targets to one-hot encoding.
     printv("Converting the targets to one-hot encoded vectors...")
@@ -201,11 +214,15 @@ def train(X_train, y_train, sess, accuracy, train_step):
 def test(X_test, y_test, sess, accuracy, predicted_y):
     """Evaluates the network on the test set and returns the predictions."""
 
+    print("")
+    print("*** TESTING ***")
+
     # Accuracy and predictions.
     accuracy_values = []
     predicted_targets = []
 
     # Test the network.
+    printv("Testing the network...")
     for j in range(100):
         # Generate the batch.
         batch = gen_batch(X_test, y_test, 100)
@@ -215,6 +232,8 @@ def test(X_test, y_test, sess, accuracy, predicted_y):
         predicted_targets.extend(b_pred_y)
 
     print('test accuracy {}'.format(np.mean(accuracy_values)))
+
+    return index_to_char(predicted_targets)
 
 
 # ---MAIN--- #
@@ -232,7 +251,7 @@ def main():
     train(X_train, y_train, sess, accuracy, train_step)
 
     # Test the network.
-    test(X_test, y_test, sess, accuracy, predicted_y)
+    predicted_targets = test(X_test, y_test, sess, accuracy, predicted_y)
 
     # Save the predictions to file.
     # np.savetxt(OUT_PATH + "test-pred.txt", y_pred, fmt='%s', delimiter='\n')
