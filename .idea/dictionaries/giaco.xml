@@ -6,6 +6,7 @@
       <w>datasets</w>
       <w>mnist</w>
       <w>printv</w>
+      <w>savetxt</w>
       <w>softmax</w>
     </words>
   </dictionary>
