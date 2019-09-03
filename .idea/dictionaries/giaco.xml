@@ -4,6 +4,7 @@
       <w>argmax</w>
       <w>conv</w>
       <w>datasets</w>
+      <w>hyperparameters</w>
       <w>mnist</w>
       <w>printv</w>
       <w>savetxt</w>

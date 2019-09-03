@@ -13,8 +13,14 @@ DATA_PATH = "..\\data\\ocr\\"
 OUT_PATH = "..\\out\\"
 
 # Number of considered examples, for debug reasons. Use "None" to take the whole dataset.
-TRAIN_SIZE = None
-TEST_SIZE = None
+TRAIN_SIZE = None  # Default: None
+TEST_SIZE = None  # Default: None
+
+# Learning algorithm hyperparameters.
+TRAIN_STEPS = 10000  # Default: 1000
+TRAIN_BATCH_SIZE = 50  # Default: 50
+TEST_BATCH_SIZE = 100  # Default: 100
+FOLDS = 3  # Default: 3
 
 
 # ---GLOBAL VARIABLES--- #
@@ -125,13 +131,13 @@ def declaration():
     # Reshape the image from vector to matrix.
     x_image = tf.reshape(x, [-1, 16, 8, 1])
 
-    # First convolution/pooling: [16x8x1] -> [8x4x32]
+    # First convolution/pooling: [16x8x1] -> [16x8x32] -> [8x4x32]
     W_conv1 = weight_variable([5, 5, 1, 32])
     b_conv1 = bias_variable([32])
     h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)
     h_pool1 = max_pool_2x2(h_conv1)
 
-    # Second convolution/pooling: [8x4x32] -> [4x2x64]
+    # Second convolution/pooling: [8x4x32] -> [8x4x64] -> [4x2x64]
     W_conv2 = weight_variable([5, 5, 32, 64])
     b_conv2 = bias_variable([64])
     h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)
@@ -166,9 +172,6 @@ def declaration():
 
     # Declare the session.
     sess = tf.InteractiveSession()
-
-    # Run the global variables initializer.
-    # tf.global_variables_initializer().run()
 
     return sess, accuracy, train_step, predicted_y
 
@@ -213,9 +216,9 @@ def train(X_train, y_train, sess, accuracy, train_step):
 
     # Train the network.
     printv("Training the network...")
-    for i in range(1000):
+    for i in range(TRAIN_STEPS):
         # Generate the batch.
-        batch = gen_batch_rand(X_train, y_train, 50)
+        batch = gen_batch_rand(X_train, y_train, TRAIN_BATCH_SIZE)
 
         # Compute the training accuracy every 100 steps.
         if i % 100 == 0:
@@ -238,10 +241,10 @@ def test(X_test, y_test, sess, accuracy, predicted_y):
 
     # Test the network.
     printv("Testing the network...")
-    iterations = -(len(X_test) // -100)
+    iterations = -(len(X_test) // -TEST_BATCH_SIZE)
     for j in range(iterations):
         # Generate the batch.
-        batch = gen_batch(X_test, y_test, 100, j)
+        batch = gen_batch(X_test, y_test, TEST_BATCH_SIZE, j)
 
         # Compute the accuracy and the predictions.
         b_acc, b_pred_y = sess.run([accuracy, predicted_y], feed_dict={x: batch[0], y: batch[1], keep_prob: 1.0})
@@ -272,6 +275,9 @@ def cross_validation(X, y, sess, accuracy, train_step, predicted_y, k):
         train(X[train_index], y[train_index], sess, accuracy, train_step)
         test(X[test_index], y[test_index], sess, accuracy, predicted_y)
 
+        print("\n")
+        print(" --------------")
+
 
 # ---MAIN--- #
 
@@ -285,7 +291,7 @@ def main():
     sess, accuracy, train_step, predicted_y = declaration()
 
     # Perform cross-validation on the network.
-    cross_validation(X_train, y_train, sess, accuracy, train_step, predicted_y, 3)
+    cross_validation(X_train, y_train, sess, accuracy, train_step, predicted_y, FOLDS)
 
     # Train the network.
     train(X_train, y_train, sess, accuracy, train_step)
@@ -294,7 +300,7 @@ def main():
     predicted_targets = test(X_test, y_test, sess, accuracy, predicted_y)
 
     # Save the predictions to file.
-    # np.savetxt(OUT_PATH + "test-pred.txt", y_pred, fmt='%s', delimiter='\n')
+    np.savetxt(OUT_PATH + "test-pred.txt", predicted_targets, fmt='%s', delimiter='\n')
 
 
 # Start the program.
